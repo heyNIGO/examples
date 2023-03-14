@@ -1,20 +1,28 @@
 import csv
 
-def readCSVAndMap():
-  A = list()
-  B = list()
+# A python class representing a plant.
+class Plant:
+    def __init__(self, plant_id, employee_count, avg_salary, and_so_on):
+        self.plant_id = plant_id
+        self.employee_count = int(employee_count)
+        self.avg_salary = int(avg_salary)
+        self.and_so_on = and_so_on
+
+    def plant_compensation(self):
+        return self.avg_salary * self.employee_count
+
+def loadPlantsFromCsv():
+  plants = []
   with open('input.csv', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     for row in csvreader:
-      A.append(row[0])
-      B.append(row[1])
+      # Make a new plant for each row in the CSV.
+      plants.append(Plant(row[0], row[1], row[2], "extra"))
 
-  output = list()
+  return plants
 
-  for i in range(len(A)):
-    for j in range(len(B)):
-      output.append(A[i] + B[j])
+plants = loadPlantsFromCsv()
 
-  print(output)
+for plant in plants:
+  print("plant {} has total cost: {}".format(plant.plant_id, plant.plant_compensation()))
 
-readCSVAndMap()
